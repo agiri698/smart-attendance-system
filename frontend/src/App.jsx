@@ -11,15 +11,20 @@ function App() {
   const [attendanceList, setAttendanceList] = useState([]);
 
   const startCamera = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: true,
-    });
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: true,
+  });
 
-    videoRef.current.srcObject = stream;
-    setCameraStarted(true);
-    setMatchedStudent(null);
-    setErrorMessage("");
-  };
+  videoRef.current.srcObject = stream;
+
+  setCameraStarted(true);
+  setMatchedStudent(null);
+  setErrorMessage("");
+
+  // Wake up backend early
+  fetch(`${import.meta.env.VITE_API_URL}/`)
+    .catch(() => {});
+};
 
   const stopCamera = () => {
     const stream = videoRef.current.srcObject;
