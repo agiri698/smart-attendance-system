@@ -54,7 +54,7 @@ function App() {
       const formData = new FormData();
       formData.append("image", blob, "captured_face.jpg");
 
-      const response = await fetch("http://127.0.0.1:8000/mark-attendance", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/mark-attendance`, {
         method: "POST",
         body: formData,
       });
