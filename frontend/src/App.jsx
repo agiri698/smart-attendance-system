@@ -61,21 +61,19 @@ function App() {
 
       const data = await response.json();
 
-      setTimeout(() => {
-        if (data.status === "Present") {
-          const student = {
-            ...data,
-            time: new Date().toLocaleTimeString(),
-          };
+      if (data.status === "Present") {
+  const student = {
+    ...data,
+    time: new Date().toLocaleTimeString(),
+  };
 
-          setMatchedStudent(student);
-          setAttendanceList((prev) => [...prev, student]);
-        } else {
-          setErrorMessage(data.message || "Face not recognized. Please try again.");
-        }
+  setMatchedStudent(student);
+  setAttendanceList((prev) => [...prev, student]);
+} else {
+  setErrorMessage(data.message || "Face not recognized. Please try again.");
+}
 
-        setIsScanning(false);
-      }, 1500);
+setIsScanning(false);
     }, "image/jpeg");
   } catch (error) {
     setIsScanning(false);
